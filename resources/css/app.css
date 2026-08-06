@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Palette tracteur : orange sécu comme accent + gris charbon */
+    --color-tractor-50: #fff4e6;
+    --color-tractor-100: #ffe6cc;
+    --color-tractor-200: #ffd09e;
+    --color-tractor-300: #ffb366;
+    --color-tractor-400: #ff8c1a;
+    --color-tractor-500: #ff6b00;
+    --color-tractor-600: #e05e00;
+    --color-tractor-700: #b84d00;
+    --color-tractor-800: #943e00;
+    --color-tractor-900: #7a3500;
+    --color-tractor-950: #421a00;
+
+    /* Gris charbon (structure) */
+    --color-field-50: #f6f6f6;
+    --color-field-100: #e7e7e7;
+    --color-field-200: #d1d1d1;
+    --color-field-300: #b0b0b0;
+    --color-field-400: #888888;
+    --color-field-500: #6d6d6d;
+    --color-field-600: #5d5d5d;
+    --color-field-700: #4f4f4f;
+    --color-field-800: #454545;
+    --color-field-900: #1a1a1a;
+    --color-field-950: #0d0d0d;
+
+    /* Neutres clairs (fonds, bordures) */
+    --color-soil-50: #fafafa;
+    --color-soil-100: #f5f5f5;
+    --color-soil-200: #e5e5e5;
+    --color-soil-300: #d4d4d4;
+    --color-soil-400: #a3a3a3;
+    --color-soil-500: #737373;
+    --color-soil-600: #525252;
+    --color-soil-700: #404040;
+    --color-soil-800: #262626;
+    --color-soil-900: #171717;
+
+    --color-safety: #ff6b00;
+    --color-safety-dark: #e05e00;
+    --color-safety-light: #ff8533;
+
+    --color-cta: #dc2626;
+    --color-cta-dark: #b91c1c;
+    --color-cta-light: #ef4444;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+html {
+    scroll-behavior: smooth;
+}
