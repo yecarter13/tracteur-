@@ -4,24 +4,6 @@
 
 @section('content')
 
-@php
-$fallback = 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&q=80';
-$catImages = [
-    'moteur' => 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&q=80',
-    'transmission' => 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80',
-    'hydraulique' => 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&q=80',
-    'relevage-3-points' => 'https://images.unsplash.com/photo-1596191830588-2ca5ac2bb1ac?w=400&q=80',
-    'embrayage' => 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=400&q=80',
-    'freinage' => 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&q=80',
-    'pneumatiques' => 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&q=80',
-    'filtration' => 'https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=400&q=80',
-    'electricite' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
-    'cabine-confort' => 'https://images.unsplash.com/photo-1596471406112-b0292f039339?w=400&q=80',
-    'carrosserie' => 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80',
-    'accessoires' => 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&q=80',
-];
-@endphp
-
 {{-- HERO CAROUSEL --}}
 <section class="relative bg-field-900 overflow-hidden">
     <div id="hero-carousel" class="relative h-[65vh] min-h-[480px] lg:min-h-[580px]">
@@ -129,10 +111,9 @@ $catImages = [
                 <div class="aspect-[4/3] bg-field-50 overflow-hidden">
                     <img src="{{ $catImages[$category->slug] ?? $fallback }}" alt="{{ $category->name }}" class="w-full h-full object-cover p-0 group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80'">
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-field-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute bottom-0 inset-x-0 p-3 text-center transform translate-y-0">
-                    <h3 class="font-semibold text-field-900 text-sm group-hover:text-white transition-colors">{{ $category->name }}</h3>
-                    <p class="text-field-400 text-xs mt-0.5 group-hover:text-field-200 transition-colors">{{ $category->products_count }} pièces</p>
+                <div class="p-3 text-center bg-white border-t border-soil-100">
+                    <h3 class="font-semibold text-field-900 text-sm group-hover:text-tractor-600 transition-colors">{{ $category->name }}</h3>
+                    <p class="text-field-400 text-xs mt-0.5">{{ $category->products_count }} pièces</p>
                 </div>
             </a>
             @endforeach
@@ -307,6 +288,23 @@ $catImages = [
             Demander une pièce
             <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
+    </div>
+</section>
+
+{{-- MARQUES --}}
+<section class="bg-field-50 border-t border-soil-100 py-14 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-xs sm:text-sm font-semibold uppercase tracking-widest text-field-400 mb-8 lg:mb-10">
+            Les grandes marques de tracteurs que nous équipons
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-12">
+            @foreach(['John Deere', 'Fares', 'Renault Agriculture', 'Massey Ferguson', 'New Holland', 'Case IH', 'Claas', 'Deutz-Fahr', 'Valtra', 'Fendt', 'Kubota', 'Landini'] as $marque)
+            <span class="group inline-flex items-center gap-2 text-field-400 hover:text-tractor-500 transition-colors grayscale hover:grayscale-0">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM12 3c-.7 0-1.3.36-1.66.92L4 10v2h16v-2l-6.34-6.08A1.99 1.99 0 0012 3zm-3 7h6a5 5 0 01-6 0zm3 2a5 5 0 01-5-5V7h9v5h-4zm-2 4h2v3h-2v-3zm4 0h2v3h-2v-3z"/></svg>
+                <span class="font-bold tracking-tight text-lg">{{ $marque }}</span>
+            </span>
+            @endforeach
+        </div>
     </div>
 </section>
 

@@ -23,6 +23,14 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function getImageAttribute($value)
+    {
+        if (!$value) return null;
+        if (str_starts_with($value, 'http')) return $value;
+        if (str_starts_with($value, '/')) return asset(substr($value, 1));
+        return asset($value);
+    }
+
     protected static function booted(): void
     {
         static::creating(function (self $category) {

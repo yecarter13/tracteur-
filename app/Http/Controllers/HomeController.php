@@ -37,6 +37,9 @@ class HomeController extends Controller
             ->filter(fn($c) => $c->products_count > 0)
             ->take(12);
 
+        $catImages = $categories->mapWithKeys(fn($c) => [$c->slug => $c->image])->all();
+        $fallback = 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80';
+
         $products = Product::where('is_active', true)
             ->orderByDesc('created_at')
             ->take(8)
@@ -63,6 +66,6 @@ class HomeController extends Controller
             'phone' => SiteSetting::getValue('contact_phone', '01 23 45 67 89'),
         ];
 
-        return view('pages.home', compact('slides', 'categories', 'products', 'randomProducts', 'brands', 'testimonials', 'company'));
+        return view('pages.home', compact('slides', 'categories', 'products', 'randomProducts', 'brands', 'testimonials', 'company', 'catImages', 'fallback'));
     }
 }
