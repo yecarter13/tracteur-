@@ -1,7 +1,8 @@
 @php
-    $company_name = \App\Models\SiteSetting::getValue('company_name', 'TractoPièces');
-    $contact_email = \App\Models\SiteSetting::getValue('contact_email', 'contact@tractopieces.fr');
+    $company_name = \App\Models\SiteSetting::getValue('company_name', 'La Boutique du Tracteur');
+    $contact_email = \App\Models\SiteSetting::getValue('contact_email', 'contact@laboutiquedutracteur.fr');
     $contact_phone = \App\Models\SiteSetting::getValue('contact_phone', '01 23 45 67 89');
+    $contact_address = \App\Models\SiteSetting::getValue('contact_address', '77 chemin de Lespinasse, 31140 Aucamville');
     $whatsapp_phone = \App\Models\SiteSetting::getValue('whatsapp_number');
 @endphp
 
@@ -16,7 +17,7 @@
                             <path d="M3 13v6h2v2h4v-2h6v2h4v-2h2v-6a9 9 0 00-9-9 9 9 0 00-7.5 4.5L3 13zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                     </div>
-                    <span class="text-lg font-bold text-white tracking-tight">Tracto<span class="text-tractor-400">Pièces</span></span>
+                    <span class="text-lg font-bold text-white tracking-tight">La Boutique du <span class="text-tractor-400">Tracteur</span></span>
                 </a>
                 <p class="text-field-400 text-sm leading-relaxed mb-4">
                     Spécialiste français de la pièce de tracteur neuve et garantie. Plus de 15 ans d'expertise au service des agriculteurs, concessionnaires et ateliers.
@@ -51,6 +52,14 @@
             <div>
                 <h3 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Contact</h3>
                 <ul class="space-y-3">
+                    @if($contact_address)
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-tractor-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="text-field-400 text-sm">{{ $contact_address }}</span>
+                    </li>
+                    @endif
                     @if($contact_email)
                     <li class="flex items-center gap-3">
                         <svg class="w-4 h-4 text-tractor-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

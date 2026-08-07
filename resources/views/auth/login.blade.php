@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Connexion — TractoPièces')
+@section('title', 'Connexion — La Boutique du Tracteur')
 
 @section('content')
 

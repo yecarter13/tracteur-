@@ -1,7 +1,7 @@
 @php
     $cart = session('cart', []);
     $cartCount = array_sum($cart);
-    $company_name = \App\Models\SiteSetting::getValue('company_name', 'TractoPièces');
+    $company_name = \App\Models\SiteSetting::getValue('company_name', 'La Boutique du Tracteur');
 @endphp
 
 <header class="sticky top-0 z-50 bg-field-900 shadow-xl border-b border-field-700">
@@ -15,7 +15,7 @@
                             <path d="M3 13v6h2v2h4v-2h6v2h4v-2h2v-6a9 9 0 00-9-9 9 9 0 00-7.5 4.5L3 13zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                     </div>
-                    <span class="text-sm sm:text-lg md:text-xl font-bold text-white tracking-tight whitespace-nowrap">Tracto<span class="text-tractor-400">Pièces</span></span>
+                    <span class="text-sm sm:text-lg md:text-xl font-bold text-white tracking-tight whitespace-nowrap">La Boutique du <span class="text-tractor-400">Tracteur</span></span>
                 </a>
 
                 <nav class="hidden lg:flex items-center gap-1">

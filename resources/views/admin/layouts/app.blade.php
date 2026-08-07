@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Administration — TractoPièces')</title>
+    <title>@yield('title', 'Administration — La Boutique du Tracteur')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-soil-100 text-soil-900">
@@ -15,7 +15,7 @@
             <svg class="w-7 h-7 text-tractor-400" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3 13v6h2v2h4v-2h6v2h4v-2h2v-6a9 9 0 00-9-9 9 9 0 00-7.5 4.5L3 13zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-            <span class="font-bold text-lg">Tracto<span class="text-tractor-400">Pièces</span></span>
+            <span class="font-bold text-lg">La Boutique du <span class="text-tractor-400">Tracteur</span></span>
         </a>
         <nav class="flex-1 py-4 space-y-1 px-3">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-field-800 transition-colors {{ request()->routeIs('admin.dashboard') ? 'bg-field-800 text-tractor-300' : 'text-field-200' }}">

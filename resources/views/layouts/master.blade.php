@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="format-detection" content="telephone=no">
-    <title>@yield('title', 'TractoPièces — Pièces de tracteur neuves et garanties')</title>
-    <meta name="description" content="@yield('meta_description', 'TractoPièces, votre fournisseur français de pièces de tracteur neuves et garanties : moteur, hydraulique, embrayage, relevage, filtration. Livraison rapide partout en France.')">
+    <title>@yield('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties')</title>
+    <meta name="description" content="@yield('meta_description', 'La Boutique du Tracteur, votre fournisseur français de pièces de tracteur neuves et garanties à Aucamville (Toulouse) : moteur, hydraulique, embrayage, relevage, filtration. Livraison rapide partout en France.')">
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@else<meta name="robots" content="index, follow">@endif
     <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,8 @@
     </main>
 
     @include('partials.footer')
+
+    @include('partials.floating-contact')
 
     <div id="cart-toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-4 bg-field-800 text-white text-base font-semibold rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none border border-tractor-400/40">
         <svg class="w-6 h-6 text-tractor-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>

@@ -37,7 +37,7 @@
 
         <div>
             <div class="flex items-center gap-2 mb-2 flex-wrap">
-                <span class="bg-tractor-50 text-tractor-700 text-xs font-bold px-3 py-1 rounded-full">{{ $product->brand ?? 'TractoPièces' }}</span>
+                <span class="bg-tractor-50 text-tractor-700 text-xs font-bold px-3 py-1 rounded-full">{{ $product->brand ?? 'La Boutique du Tracteur' }}</span>
                 <span class="text-xs text-field-400">Réf : {{ $product->sku }}</span>
             </div>
 

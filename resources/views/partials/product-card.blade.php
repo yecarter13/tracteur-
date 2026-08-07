@@ -21,7 +21,7 @@
     </a>
 
     <div class="p-4 flex flex-col flex-1">
-        <p class="text-xs font-semibold text-field-600 uppercase tracking-wide mb-1">{{ $product->brand ?? 'TractoPièces' }}</p>
+        <p class="text-xs font-semibold text-field-600 uppercase tracking-wide mb-1">{{ $product->brand ?? 'La Boutique du Tracteur' }}</p>
         <a href="{{ route('product.show', $product->slug) }}" class="font-semibold text-soil-900 line-clamp-2 leading-snug hover:text-field-700 transition-colors min-h-[2.5rem]">
             {{ $product->name }}
         </a>

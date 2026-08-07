@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@tractopieces.fr'],
+            ['email' => 'admin@laboutiquedutracteur.fr'],
             [
                 'name' => 'Administrateur',
                 'password' => 'admin1234',
@@ -143,10 +143,11 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        SiteSetting::setValue('company_name', 'TractoPièces');
+        SiteSetting::setValue('company_name', 'La Boutique du Tracteur');
         SiteSetting::setValue('company_slogan', 'Pièces de tracteur neuves et garanties, livrées partout en France');
-        SiteSetting::setValue('contact_email', 'contact@tractopieces.fr');
-        SiteSetting::setValue('contact_phone', '01 23 45 67 89');
-        SiteSetting::setValue('whatsapp_number', '33612345678');
+        SiteSetting::setValue('contact_email', 'contact@laboutiquedutracteur.fr');
+        SiteSetting::setValue('contact_phone', '+33 7 56 87 42 97');
+        SiteSetting::setValue('contact_address', '77 chemin de Lespinasse, 31140 Aucamville, Haute-Garonne (près de Toulouse)');
+        SiteSetting::setValue('whatsapp_number', '33756874297');
     }
 }

@@ -15,6 +15,7 @@ class SettingController extends Controller
             'company_slogan' => SiteSetting::getValue('company_slogan'),
             'contact_email' => SiteSetting::getValue('contact_email'),
             'contact_phone' => SiteSetting::getValue('contact_phone'),
+            'contact_address' => SiteSetting::getValue('contact_address'),
             'whatsapp_number' => SiteSetting::getValue('whatsapp_number'),
         ];
 
@@ -28,10 +29,11 @@ class SettingController extends Controller
             'company_slogan' => 'nullable|string',
             'contact_email' => 'nullable|email',
             'contact_phone' => 'nullable|string|max:255',
+            'contact_address' => 'nullable|string|max:255',
             'whatsapp_number' => 'nullable|string|max:255',
         ]);
 
-        foreach (['company_name', 'company_slogan', 'contact_email', 'contact_phone', 'whatsapp_number'] as $key) {
+        foreach (['company_name', 'company_slogan', 'contact_email', 'contact_phone', 'contact_address', 'whatsapp_number'] as $key) {
             SiteSetting::setValue($key, $request->input($key));
         }
 

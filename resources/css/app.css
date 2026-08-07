@@ -99,3 +99,16 @@
 html {
     scroll-behavior: smooth;
 }
+
+@keyframes bounce-contact {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+#floating-contact-btn {
+    animation: bounce-contact 3s ease-in-out infinite;
+}
+
+#floating-contact-btn:hover {
+    animation: none;
+}

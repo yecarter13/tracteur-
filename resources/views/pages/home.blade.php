@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'TractoPièces — Pièces de tracteur neuves et garanties en France')
+@section('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France')
 
 @section('content')
 
@@ -80,20 +80,6 @@
                 <p class="text-[11px] lg:text-xs text-field-500">Conseils personnalisés</p>
             </div>
         </div>
-    </div>
-</section>
-
-{{-- MARQUES --}}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-4">
-        @foreach($brands as $brand)
-        <span class="inline-flex items-center gap-2 font-bold text-lg text-field-500 select-none">
-            <svg class="w-6 h-6 text-tractor-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 13v6h2v2h4v-2h6v2h4v-2h2v-6a9 9 0 00-9-9 9 9 0 00-7.5 4.5L3 13zM15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-            {{ $brand }}
-        </span>
-        @endforeach
     </div>
 </section>
 

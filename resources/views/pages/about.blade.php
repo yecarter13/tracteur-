@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
-@section('title', 'À propos — TractoPièces')
+@section('title', 'À propos — La Boutique du Tracteur')
 
 @section('content')
 
 <section class="bg-field-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <p class="text-tractor-400 font-semibold text-sm uppercase tracking-widest mb-1">Qui sommes-nous</p>
-        <h1 class="text-3xl md:text-5xl font-bold text-white">TractoPièces, spécialiste français de la pièce de tracteur</h1>
-        <p class="mt-4 text-lg text-field-300 max-w-2xl">Depuis plus de 15 ans, nous fournissons des pièces neuves et garanties aux agriculteurs, concessionnaires et ateliers de toute la France.</p>
+        <h1 class="text-3xl md:text-5xl font-bold text-white">La Boutique du Tracteur, spécialiste français de la pièce de tracteur</h1>
+        <p class="mt-4 text-lg text-field-300 max-w-2xl">Basée à Aucamville (Haute-Garonne, près de Toulouse), la boutique fournit des pièces neuves et garanties aux agriculteurs, concessionnaires et ateliers de toute la France.</p>
     </div>
 </section>
 
@@ -33,7 +33,7 @@
             <div class="bg-white rounded-xl border border-soil-100 p-8">
                 <h2 class="text-2xl font-bold text-field-900 mb-4">Notre métier</h2>
                 <p class="text-soil-600 leading-relaxed">
-                    TractoPièces distribue des pièces de tracteur neuves et garanties pour toutes les grandes marques :
+                    La Boutique du Tracteur distribue des pièces de tracteur neuves et garanties pour toutes les grandes marques :
                     John Deere, New Holland, Massey Ferguson, Case IH, Claas, Fendt, Deutz-Fahr, Renault Agriculture et bien d'autres.
                     Du moteur à la cabine, de l'hydraulique au relevage, nous couvrons l'ensemble des besoins de maintenance et de réparation.
                 </p>

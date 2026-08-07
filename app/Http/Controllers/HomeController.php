@@ -50,8 +50,6 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        $brands = ['John Deere', 'New Holland', 'Massey Ferguson', 'Case IH', 'Claas', 'Fendt', 'Deutz-Fahr', 'Renault Agriculture'];
-
         $testimonials = [
             (object) ['name' => 'Bernard Lemaire', 'city' => 'Rouen', 'rating' => 5, 'text' => 'Pièce de relevage introuvable chez le concessionnaire, livrée en 48h. Impeccable !'],
             (object) ['name' => 'Cyril Moreau', 'city' => 'Angers', 'rating' => 5, 'text' => 'Le kit embrayage correspondait parfaitement à mon John Deere. Bravo au service client.'],
@@ -62,10 +60,10 @@ class HomeController extends Controller
         ];
 
         $company = [
-            'name' => SiteSetting::getValue('company_name', 'TractoPièces'),
+            'name' => SiteSetting::getValue('company_name', 'La Boutique du Tracteur'),
             'phone' => SiteSetting::getValue('contact_phone', '01 23 45 67 89'),
         ];
 
-        return view('pages.home', compact('slides', 'categories', 'products', 'randomProducts', 'brands', 'testimonials', 'company', 'catImages', 'fallback'));
+        return view('pages.home', compact('slides', 'categories', 'products', 'randomProducts', 'testimonials', 'company', 'catImages', 'fallback'));
     }
 }
