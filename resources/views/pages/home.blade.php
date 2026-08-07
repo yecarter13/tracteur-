@@ -292,17 +292,49 @@
 </section>
 
 {{-- MARQUES --}}
+@php
+$brandLogos = [
+    ['name' => 'John Deere', 'img' => '/john.png'],
+    ['name' => 'New Holland', 'img' => '/newholland.png'],
+    ['name' => 'Fendt', 'img' => '/fendt.png'],
+    ['name' => 'Massey Ferguson', 'img' => '/massey.png'],
+    ['name' => 'Case', 'img' => '/case.png'],
+    ['name' => 'IH', 'img' => '/ih.jpg'],
+    ['name' => 'Kubota', 'img' => '/kubota.png'],
+    ['name' => 'Deutz-Fahr', 'img' => '/deutz.png'],
+    ['name' => 'McCormick', 'img' => '/mccormick.jpg'],
+    ['name' => 'Same', 'img' => '/Same.png'],
+    ['name' => 'Lamborghini', 'img' => '/Lamborghini%20.png'],
+    ['name' => 'Landini', 'img' => '/landini.jpg'],
+    ['name' => 'Fiat', 'img' => '/Fiat.jpg'],
+    ['name' => 'Renault', 'img' => '/Renault.png'],
+    ['name' => 'Ford', 'img' => '/Ford.png'],
+    ['name' => 'Ferrari', 'img' => '/Ferrari.jpg'],
+    ['name' => 'Goldoni', 'img' => '/Goldoni.png'],
+];
+@endphp
 <section class="bg-field-50 border-t border-soil-100 py-14 lg:py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="text-center text-xs sm:text-sm font-semibold uppercase tracking-widest text-field-400 mb-8 lg:mb-10">
-            Les grandes marques de tracteurs que nous équipons
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-12">
-            @foreach(['John Deere', 'Fares', 'Renault Agriculture', 'Massey Ferguson', 'New Holland', 'Case IH', 'Claas', 'Deutz-Fahr', 'Valtra', 'Fendt', 'Kubota', 'Landini'] as $marque)
-            <span class="group inline-flex items-center gap-2 text-field-400 hover:text-tractor-500 transition-colors grayscale hover:grayscale-0">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM12 3c-.7 0-1.3.36-1.66.92L4 10v2h16v-2l-6.34-6.08A1.99 1.99 0 0012 3zm-3 7h6a5 5 0 01-6 0zm3 2a5 5 0 01-5-5V7h9v5h-4zm-2 4h2v3h-2v-3zm4 0h2v3h-2v-3z"/></svg>
-                <span class="font-bold tracking-tight text-lg">{{ $marque }}</span>
-            </span>
+        <div class="text-center mb-8 lg:mb-10">
+            <span class="text-tractor-500 font-semibold text-sm uppercase tracking-widest">Nos marques</span>
+            <h2 class="text-3xl lg:text-4xl font-bold text-field-900 mt-2">Les grandes marques de tracteurs</h2>
+            <p class="text-field-500 mt-3 max-w-2xl mx-auto">Nous équipons les plus grandes marques de tracteurs avec des pièces neuves et garanties</p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-5">
+            @foreach($brandLogos as $brand)
+            <div class="group bg-white rounded-xl border border-soil-100 p-3 sm:p-5 flex items-center justify-center hover:shadow-lg hover:-translate-y-0.5 hover:border-tractor-300/40 transition-all duration-300">
+                @if($brand['img'])
+                <img src="{{ $brand['img'] }}" alt="{{ $brand['name'] }}" loading="lazy"
+                     class="max-h-10 sm:max-h-14 w-auto object-contain opacity-70 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-300"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span class="hidden items-center justify-center text-field-500 font-bold text-sm sm:text-base tracking-tight">{{ $brand['name'] }}</span>
+                @else
+                <span class="inline-flex items-center gap-2 text-field-500 group-hover:text-tractor-500 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM12 3c-.7 0-1.3.36-1.66.92L4 10v2h16v-2l-6.34-6.08A1.99 1.99 0 0012 3zm-3 7h6a5 5 0 01-6 0zm3 2a5 5 0 01-5-5V7h9v5h-4zm-2 4h2v3h-2v-3zm4 0h2v3h-2v-3z"/></svg>
+                    <span class="font-bold tracking-tight text-sm sm:text-base">{{ $brand['name'] }}</span>
+                </span>
+                @endif
+            </div>
             @endforeach
         </div>
     </div>
