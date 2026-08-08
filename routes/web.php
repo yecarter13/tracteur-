@@ -44,7 +44,7 @@ Route::post('/panier/supprimer/{id}', [CartController::class, 'remove'])->name('
 Route::post('/panier/vider', [CartController::class, 'clear'])->name('cart.clear');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::redirect('/', '/admin/products')->name('dashboard');
     Route::resource('products', AdminProductController::class);
     Route::resource('categories', AdminCategoryController::class);
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
