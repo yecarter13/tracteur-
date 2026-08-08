@@ -2,6 +2,8 @@
 
 @section('title', 'À propos — La Boutique du Tracteur')
 
+@section('meta_description', 'La Boutique du Tracteur, spécialiste français de la pièce de tracteur neuve depuis plus de 15 ans à Aucamville (Toulouse). Pièces garanties 24 mois, livraison 24/48h.')
+
 @section('content')
 
 <section class="bg-field-900">

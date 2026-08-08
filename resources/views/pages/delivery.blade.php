@@ -2,6 +2,8 @@
 
 @section('title', 'Livraison & transport')
 
+@section('meta_description', 'Livraison 24/48h en France métropolitaine. Frais de port offerts dès 200€. Transporteurs spécialisés pièces lourdes et volumineuses.')
+
 @section('content')
 
 <section class="bg-field-800 text-white">

@@ -2,6 +2,8 @@
 
 @section('title', 'Connexion — La Boutique du Tracteur')
 
+@section('meta_description', 'Accédez à votre compte La Boutique du Tracteur. Suivez vos commandes de pièces de tracteur et gérez votre historique d\'achat.')
+
 @section('content')
 
 <section class="max-w-md mx-auto px-4 py-20">

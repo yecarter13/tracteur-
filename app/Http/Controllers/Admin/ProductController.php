@@ -44,12 +44,24 @@ class ProductController extends Controller
             'compatibility' => 'nullable|string|max:255',
             'stock_quantity' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
+            'specifications' => 'nullable|string',
+            'image' => 'nullable|file|image|max:4096',
+            'image_url' => 'nullable|string|url|max:2000',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'file|image|max:4096',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
             'is_active' => 'boolean',
         ]);
 
         $validated['slug'] = $this->uniqueSlug(Str::slug($validated['name']));
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_new'] = $request->boolean('is_new');
+
+        $validated['image'] = $this->handleImage($request);
+        $validated['gallery_images'] = $this->handleGallery($request);
+        $validated = $this->applySeo($validated);
+        unset($validated['image_url'], $validated['gallery']);
 
         Product::create($validated);
 
@@ -74,6 +86,15 @@ class ProductController extends Controller
             'compatibility' => 'nullable|string|max:255',
             'stock_quantity' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
+            'specifications' => 'nullable|string',
+            'image' => 'nullable|file|image|max:4096',
+            'image_url' => 'nullable|string|url|max:2000',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'file|image|max:4096',
+            'remove_gallery' => 'nullable|array',
+            'remove_image' => 'nullable|boolean',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
             'is_active' => 'boolean',
         ]);
 
@@ -83,6 +104,32 @@ class ProductController extends Controller
         if ($product->name !== $validated['name']) {
             $validated['slug'] = $this->uniqueSlug(Str::slug($validated['name']), $product->id);
         }
+
+        if ($request->boolean('remove_image') && $product->image) {
+            $this->deleteStoredFile($product->image);
+            $validated['image'] = null;
+        }
+
+        $newImage = $this->handleImage($request);
+        if ($newImage) {
+            if ($product->image && !$request->boolean('remove_image')) {
+                $this->deleteStoredFile($product->image);
+            }
+            $validated['image'] = $newImage;
+        }
+
+        $existingGallery = $product->gallery_images ?? [];
+        $removeGallery = $request->input('remove_gallery', []);
+        $existingGallery = array_values(array_diff($existingGallery, $removeGallery));
+        foreach ($removeGallery as $img) {
+            $this->deleteStoredFile($img);
+        }
+
+        $newGallery = $this->handleGallery($request);
+        $validated['gallery_images'] = array_merge($existingGallery, $newGallery);
+
+        $validated = $this->applySeo($validated);
+        unset($validated['image_url'], $validated['gallery'], $validated['remove_gallery'], $validated['remove_image']);
 
         $product->update($validated);
 
@@ -103,5 +150,57 @@ class ProductController extends Controller
             $slug = $base . '-' . $counter++;
         }
         return $slug;
+    }
+
+    private function applySeo(array $validated): array
+    {
+        $name = $validated['name'] ?? '';
+        $brand = trim($validated['brand'] ?? '');
+
+        $metaTitle = trim($validated['meta_title'] ?? '');
+        if ($metaTitle === '') {
+            $metaTitle = $name . ($brand !== '' ? ' — ' . $brand : '') . ' — La Boutique du Tracteur';
+        }
+        $validated['meta_title'] = Str::limit($metaTitle, 70, '');
+
+        $metaDescription = trim($validated['meta_description'] ?? '');
+        if ($metaDescription === '') {
+            $base = trim($validated['description'] ?? '');
+            $metaDescription = $base !== ''
+                ? strip_tags($base)
+                : 'Pièce neuve et garantie 24 mois' . ($brand !== '' ? ' pour ' . $brand : '') . '. Prix attractif et livraison 24/48h partout en France.';
+        }
+        $validated['meta_description'] = Str::limit($metaDescription, 160, '…');
+
+        return $validated;
+    }
+
+    private function handleImage(Request $request): ?string
+    {
+        if ($request->hasFile('image')) {
+            return $request->file('image')->store('products', 'public');
+        }
+        if ($request->filled('image_url')) {
+            return $request->input('image_url');
+        }
+        return null;
+    }
+
+    private function handleGallery(Request $request): array
+    {
+        $paths = [];
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $file) {
+                $paths[] = $file->store('products', 'public');
+            }
+        }
+        return $paths;
+    }
+
+    private function deleteStoredFile(?string $path): void
+    {
+        if ($path && !filter_var($path, FILTER_VALIDATE_URL) && \Storage::disk('public')->exists($path)) {
+            \Storage::disk('public')->delete($path);
+        }
     }
 }

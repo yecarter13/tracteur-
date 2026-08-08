@@ -2,6 +2,8 @@
 
 @section('title', 'Boutique — Pièces de tracteur')
 
+@section('meta_description', 'Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison rapide 24/48h en France. Moteur, hydraulique, embrayage, filtration — stock disponible.')
+
 @section('content')
 
 <section class="bg-field-900 py-12 lg:py-16">

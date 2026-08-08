@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
-@section('title', $product->name)
+@section('title', $product->meta_title ?? ($product->name . ' — La Boutique du Tracteur'))
+@section('meta_description', $product->meta_description ?? \Illuminate\Support\Str::limit(strip_tags((string) $product->description), 160, '…'))
 
 @section('content')
 
@@ -25,7 +26,7 @@
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <div class="grid lg:grid-cols-2 gap-10">
         <div class="relative bg-soil-100 rounded-2xl overflow-hidden max-h-[520px]">
-            <img src="{{ $product->image ?? $fallback }}" alt="{{ $product->name }}" class="w-full h-full object-cover"
+            <img src="{{ $product->image ? (Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image)) : $fallback }}" alt="{{ $product->name }}" class="w-full h-full object-cover"
                 onerror="this.src='{{ $fallback }}'">
             @if($product->old_price && $product->old_price > $product->price)
             <span class="absolute top-4 left-4 px-2.5 py-1 bg-tractor-500 text-white text-xs font-bold rounded-lg">-{{ round((1 - (float)$product->price / (float)$product->old_price) * 100) }}%</span>
@@ -49,7 +50,16 @@
                     @for($i = 1; $i <= 5; $i++)
                     <svg class="w-5 h-5 {{ $i <= round($product->rating) ? 'text-yellow-400' : 'text-soil-200' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     @endfor
+            @if($product->gallery_images && count($product->gallery_images))
+            <div class="grid grid-cols-4 gap-2 mt-4">
+                @foreach($product->gallery_images as $img)
+                <div class="aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200">
+                    <img src="{{ Str::startsWith($img, 'http') ? $img : asset('storage/' . $img) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                 </div>
+                @endforeach
+            </div>
+            @endif
+        </div>
                 <span class="text-sm text-field-500">{{ number_format((float)$product->rating, 1, ',', '.') }}/5 ({{ $product->review_count }} avis)</span>
             </div>
             @endif
@@ -107,6 +117,13 @@
     <div class="mt-12 bg-white rounded-xl border border-soil-100 p-8">
         <h2 class="text-2xl font-bold text-field-900 mb-4">Description</h2>
         <p class="text-soil-600 leading-relaxed">{{ $product->description }}</p>
+    </div>
+    @endif
+
+    @if($product->specifications)
+    <div class="mt-8 bg-field-50 rounded-xl border border-soil-100 p-8">
+        <h2 class="text-2xl font-bold text-field-900 mb-4">Spécifications techniques</h2>
+        <div class="text-soil-600 leading-relaxed whitespace-pre-line">{{ $product->specifications }}</div>
     </div>
     @endif
 </section>

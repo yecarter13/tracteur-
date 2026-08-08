@@ -17,7 +17,7 @@ class HomeController extends Controller
                 'cta_primary' => 'Voir le catalogue',
                 'cta_secondary' => 'Rechercher une pièce',
                 'tag' => 'Pièces neuves garanties',
-                'image' => 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&q=80',
+                'image' => asset('hero1.jpg'),
             ],
             (object) [
                 'title' => 'Moteur, hydraulique, relevage & plus',
@@ -25,7 +25,7 @@ class HomeController extends Controller
                 'cta_primary' => 'Explorer les catégories',
                 'cta_secondary' => 'Contactez-nous',
                 'tag' => 'Grande disponibilité',
-                'image' => 'https://images.unsplash.com/photo-1596471406112-b0292f039339?w=1920&q=80',
+                'image' => asset('hero2.jpg'),
             ],
         ];
 
@@ -38,7 +38,7 @@ class HomeController extends Controller
             ->take(12);
 
         $catImages = $categories->mapWithKeys(fn($c) => [$c->slug => $c->image])->all();
-        $fallback = 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=80';
+        $fallback = asset('hero1.jpg');
 
         $products = Product::where('is_active', true)
             ->orderByDesc('created_at')

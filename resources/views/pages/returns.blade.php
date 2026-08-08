@@ -2,6 +2,8 @@
 
 @section('title', 'Retours & échanges')
 
+@section('meta_description', 'Retour sous 14 jours et remboursement intégral. Pièces de tracteur neuves garanties 24 mois. Expédition gratuite de la pièce de remplacement.')
+
 @section('content')
 
 <section class="bg-field-800 text-white">

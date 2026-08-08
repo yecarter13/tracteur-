@@ -2,6 +2,8 @@
 
 @section('title', 'Politique de confidentialité')
 
+@section('meta_description', 'Politique de confidentialité et RGPD. Vos données personnelles sont protégées, hébergées en France et jamais revendues à des tiers.')
+
 @section('content')
 
 <section class="bg-field-800 text-white">

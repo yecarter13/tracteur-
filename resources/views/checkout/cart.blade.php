@@ -2,6 +2,8 @@
 
 @section('title', 'Votre panier')
 
+@section('meta_description', 'Votre panier sur La Boutique du Tracteur. Vérifiez vos pièces de tracteur sélectionnées et finalisez votre commande en toute sécurité.')
+
 @section('content')
 
 <section class="bg-field-900">
