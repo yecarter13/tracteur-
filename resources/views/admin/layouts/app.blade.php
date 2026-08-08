@@ -12,7 +12,7 @@
 <div class="min-h-screen flex">
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-60 bg-field-900 text-white flex flex-col -translate-x-full transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:z-auto">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-60 bg-field-900 text-white flex flex-col shrink-0 -translate-x-full transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0 lg:z-auto lg:w-60">
         <div class="flex items-center justify-between px-5 py-5 border-b border-field-800">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 <svg class="w-7 h-7 text-tractor-400" viewBox="0 0 24 24" fill="currentColor">
