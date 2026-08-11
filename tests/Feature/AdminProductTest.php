@@ -38,7 +38,7 @@ class AdminProductTest extends TestCase
         $response->assertSee('Nom du produit', false);
         $response->assertSee('Description', false);
         $response->assertSee('name="image"', false);
-        $response->assertSee('Générer', false);
+        $response->assertSee('générés automatiquement', false);
         $response->assertSee('Parmi d\'autres', false);
         $response->assertSee('<select name="brand"', false);
         $response->assertSee('John Deere', false);
@@ -49,6 +49,7 @@ class AdminProductTest extends TestCase
         $this->assertStringNotContainsString('Spécifications techniques', $response->getContent());
         $this->assertStringNotContainsString('name="image_url"', $response->getContent());
         $this->assertStringNotContainsString('name="brand" placeholder', $response->getContent());
+        $this->assertStringNotContainsString('generateSeo', $response->getContent());
     }
 
     public function test_product_is_created_with_auto_sku_and_auto_seo(): void

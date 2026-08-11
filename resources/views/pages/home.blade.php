@@ -2,6 +2,19 @@
 
 @section('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France')
 
+@section('seo_head')
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="La Boutique du Tracteur">
+<meta property="og:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France">
+<meta property="og:description" content="Votre fournisseur français de pièces de tracteur neuves et garanties : moteur, hydraulique, embrayage, relevage, filtration. Livraison rapide partout en France.">
+<meta property="og:url" content="{{ url('/') }}">
+<meta property="og:image" content="{{ $fallback }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France">
+<meta name="twitter:description" content="Votre fournisseur français de pièces de tracteur neuves et garanties. Livraison rapide partout en France.">
+<meta name="twitter:image" content="{{ $fallback }}">
+@endsection
+
 @section('content')
 
 {{-- HERO CAROUSEL --}}

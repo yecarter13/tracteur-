@@ -3,9 +3,77 @@
 @section('title', $product->meta_title ?? ($product->name . ' — La Boutique du Tracteur'))
 @section('meta_description', $product->meta_description ?? \Illuminate\Support\Str::limit(strip_tags((string) $product->description), 160, '…'))
 
+@php
+$prodFallback = 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80';
+$prodImage = $product->image
+    ? (Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image))
+    : $prodFallback;
+$prodUrl = route('product.show', $product->slug);
+$prodTitle = $product->meta_title ?? ($product->name . ' — La Boutique du Tracteur');
+$prodDesc = $product->meta_description ?? \Illuminate\Support\Str::limit(strip_tags((string) $product->description), 160, '…');
+$prodBrand = $product->brand ?? 'La Boutique du Tracteur';
+$prodAvail = $product->stock_quantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
+$crumbs = [
+    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => route('home')],
+    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Boutique', 'item' => route('shop')],
+];
+if ($product->category) {
+    $crumbs[] = ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('shop', ['category' => $product->category->slug])];
+}
+$crumbs[] = ['@type' => 'ListItem', 'position' => count($crumbs) + 1, 'name' => $product->name, 'item' => $prodUrl];
+@endphp
+
+@section('seo_head')
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="La Boutique du Tracteur">
+<meta property="og:title" content="{{ $prodTitle }}">
+<meta property="og:description" content="{{ $prodDesc }}">
+<meta property="og:url" content="{{ $prodUrl }}">
+<meta property="og:image" content="{{ $prodImage }}">
+<meta property="product:price:amount" content="{{ number_format((float)$product->price, 2, '.', '') }}">
+<meta property="product:price:currency" content="EUR">
+<meta property="product:availability" content="{{ $product->stock_quantity > 0 ? 'in stock' : 'preorder' }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $prodTitle }}">
+<meta name="twitter:description" content="{{ $prodDesc }}">
+<meta name="twitter:image" content="{{ $prodImage }}">
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Product',
+    'name' => $product->name,
+    'image' => [$prodImage],
+    'description' => $product->description,
+    'sku' => $product->sku,
+    'mpn' => $product->sku,
+    'brand' => ['@type' => 'Brand', 'name' => $prodBrand],
+    'category' => $product->category?->name,
+    'url' => $prodUrl,
+    'offers' => [
+        '@type' => 'Offer',
+        'url' => $prodUrl,
+        'priceCurrency' => 'EUR',
+        'price' => number_format((float)$product->price, 2, '.', ''),
+        'priceValidUntil' => now()->addMonths(12)->toDateString(),
+        'availability' => $prodAvail,
+        'itemCondition' => 'https://schema.org/NewCondition',
+    ],
+    'aggregateRating' => $product->rating > 0 ? [
+        '@type' => 'AggregateRating',
+        'ratingValue' => number_format((float)$product->rating, 1, '.', ''),
+        'reviewCount' => $product->review_count ?: 1,
+    ] : null,
+    'breadcrumb' => [
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => $crumbs,
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endsection
+
 @section('content')
 
-@php $fallback = 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80'; @endphp
+@php $fallback = $prodFallback; @endphp
 
 <section class="bg-field-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

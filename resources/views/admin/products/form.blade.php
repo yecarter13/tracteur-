@@ -96,8 +96,8 @@
                             <p class="text-xs text-soil-400 mt-1">JPG, PNG, WebP — max 4 Mo</p>
                         </div>
                     </div>
-                    <div class="w-40 max-w-full shrink-0">
-                        <div id="image-preview" class="relative w-full aspect-square bg-soil-100 rounded-xl overflow-hidden border border-soil-200">
+                    <div class="w-40 h-40 max-w-full shrink-0">
+                        <div id="image-preview" class="relative w-full h-full bg-soil-100 rounded-xl overflow-hidden border border-soil-200">
                             @if($product?->image)
                             <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="w-full h-full object-cover">
                             <label class="absolute top-1 right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded cursor-pointer">
@@ -120,7 +120,7 @@
                     <p class="text-xs text-soil-400 mt-1">JPG, PNG, WebP — max 4 Mo chacun</p>
                 </div>
                 @if($product && ($product->gallery_images ?? false))
-                <div id="gallery-list" class="grid grid-cols-4 sm:grid-cols-6 gap-2 mt-3">
+                <div id="gallery-list" class="grid grid-cols-6 sm:grid-cols-8 gap-2 mt-3">
                     @foreach($product->gallery_images as $index => $img)
                     <div class="relative aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200">
                         <img src="{{ Str::startsWith($img, 'http') ? $img : asset('storage/' . $img) }}" class="w-full h-full object-cover">
@@ -134,26 +134,17 @@
             </div>
 
             <div class="sm:col-span-2 border-t border-soil-100 pt-4 mt-2">
-                <div class="flex items-center justify-between mb-1">
-                    <h3 class="text-sm font-bold text-field-900">Référencement (SEO)</h3>
-                    <div class="flex items-center gap-2">
-                        <span id="seo-feedback" class="text-xs text-green-600 font-semibold hidden">✓ Généré</span>
-                        <button type="button" onclick="generateSeo()" class="text-xs font-semibold px-3 py-1.5 bg-tractor-500 hover:bg-tractor-600 text-white rounded-lg transition-colors flex items-center gap-1">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            Générer
-                        </button>
-                    </div>
-                </div>
-                <p class="text-xs text-soil-400 mb-3">Ces éléments déterminent l'affichage du produit dans Google. Laissez vide pour une génération automatique.</p>
+                <h3 class="text-sm font-bold text-field-900 mb-1">Référencement (SEO)</h3>
+                <p class="text-xs text-soil-400 mb-3">Le titre et la méta description sont générés automatiquement à partir du nom, de la marque et de la description. Vous pouvez les modifier librement.</p>
             </div>
             <div class="sm:col-span-2">
                 <label class="block text-sm font-semibold mb-1">Titre SEO</label>
-                <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $product?->meta_title) }}" maxlength="70" placeholder="Auto : nom + marque + La Boutique du Tracteur" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
+                <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $product?->meta_title) }}" maxlength="70" placeholder="Généré automatiquement" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
                 <p class="mt-1 text-xs text-soil-400">Idéalement 50-65 caractères.</p>
             </div>
             <div class="sm:col-span-2">
                 <label class="block text-sm font-semibold mb-1">Méta description</label>
-                <textarea name="meta_description" id="meta_description" rows="3" maxlength="160" placeholder="Auto : description du produit" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">{{ old('meta_description', $product?->meta_description) }}</textarea>
+                <textarea name="meta_description" id="meta_description" rows="3" maxlength="160" placeholder="Générée automatiquement" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">{{ old('meta_description', $product?->meta_description) }}</textarea>
                 <p class="mt-1 text-xs text-soil-400">Idéalement 150-160 caractères.</p>
             </div>
         </div>
@@ -189,7 +180,7 @@ function previewMainImage() {
 
     var reader = new FileReader();
     reader.onload = function (e) {
-        preview.innerHTML = '<img src="' + e.target.result + '" class="w-full h-full object-cover">';
+        preview.innerHTML = '<img src="' + e.target.result + '" alt="Aperçu" style="display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:cover;">';
     };
     reader.readAsDataURL(file);
 }
@@ -202,7 +193,7 @@ function previewGalleryImages() {
     if (!list) {
         list = document.createElement('div');
         list.id = 'gallery-list';
-        list.className = 'grid grid-cols-4 sm:grid-cols-6 gap-2 mt-3';
+        list.className = 'grid grid-cols-6 sm:grid-cols-8 gap-2 mt-3';
         input.closest('.relative').after(list);
     }
     list.innerHTML = '';
@@ -213,7 +204,7 @@ function previewGalleryImages() {
         reader.onload = function (e) {
             var div = document.createElement('div');
             div.className = 'relative aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200';
-            div.innerHTML = '<img src="' + e.target.result + '" class="w-full h-full object-cover">';
+            div.innerHTML = '<img src="' + e.target.result + '" alt="Aperçu" style="display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:cover;">';
             list.appendChild(div);
         };
         reader.readAsDataURL(file);
@@ -226,38 +217,50 @@ if (imageInput) imageInput.addEventListener('change', previewMainImage);
 var galleryInput = document.getElementById('gallery-input');
 if (galleryInput) galleryInput.addEventListener('change', previewGalleryImages);
 
-function generateSeo() {
-    var nameInput = document.querySelector('input[name="name"]');
-    var brandSelect = document.querySelector('select[name="brand"]');
-    var descInput = document.querySelector('textarea[name="description"]');
+function getSeoName() {
+    var el = document.querySelector('input[name="name"]');
+    return el ? el.value.trim() : '';
+}
 
+function getSeoBrand() {
+    var el = document.querySelector('select[name="brand"]');
+    return el ? el.value.trim() : '';
+}
+
+function getSeoDesc() {
+    var el = document.querySelector('textarea[name="description"]');
+    return el ? el.value.trim() : '';
+}
+
+function autoSeo() {
     var metaTitle = document.getElementById('meta_title');
     var metaDesc = document.getElementById('meta_description');
 
-    var name = (nameInput ? nameInput.value : '').trim();
-    var brand = (brandSelect ? brandSelect.value : '').trim();
-    var desc = (descInput ? descInput.value : '').trim();
+    var name = getSeoName();
+    var brand = getSeoBrand();
 
-    if (!name) {
-        var feedback = document.getElementById('seo-feedback');
-        feedback.textContent = 'Remplissez le nom du produit d\'abord';
-        feedback.className = 'text-xs text-red-600 font-semibold';
-        nameInput && nameInput.focus();
-        return;
+    if (metaTitle && !metaTitle.value.trim()) {
+        var t = name + (brand ? ' — ' + brand : '') + ' — La Boutique du Tracteur';
+        metaTitle.value = t.substring(0, 70);
     }
 
-    var t = name + (brand ? ' — ' + brand : '') + ' — La Boutique du Tracteur';
-    metaTitle.value = t.substring(0, 70);
-
-    var d = desc
-        ? desc.replace(/<[^>]*>/g, '').substring(0, 160)
-        : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison 24/48h partout en France.').substring(0, 160);
-    metaDesc.value = d;
-
-    var feedback = document.getElementById('seo-feedback');
-    feedback.textContent = '✓ Généré';
-    feedback.className = 'text-xs text-green-600 font-semibold';
-    setTimeout(function () { feedback.className = 'text-xs text-green-600 font-semibold hidden'; }, 3000);
+    if (metaDesc && !metaDesc.value.trim()) {
+        var desc = getSeoDesc();
+        var d = desc
+            ? desc.replace(/<[^>]*>/g, '').substring(0, 160)
+            : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison 24/48h partout en France.').substring(0, 160);
+        metaDesc.value = d;
+    }
 }
+
+var seoNameInput = document.querySelector('input[name="name"]');
+var seoBrandSelect = document.querySelector('select[name="brand"]');
+var seoDescInput = document.querySelector('textarea[name="description"]');
+
+if (seoNameInput) seoNameInput.addEventListener('input', autoSeo);
+if (seoBrandSelect) seoBrandSelect.addEventListener('change', autoSeo);
+if (seoDescInput) seoDescInput.addEventListener('input', autoSeo);
+
+autoSeo();
 </script>
 @endpush
