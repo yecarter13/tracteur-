@@ -51,10 +51,6 @@
                 <input type="number" step="0.01" name="old_price" value="{{ old('old_price', $product?->old_price) }}" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
             </div>
             <div>
-                <label class="block text-sm font-semibold mb-1">Référence (SKU) *</label>
-                <input type="text" name="sku" required value="{{ old('sku', $product?->sku) }}" placeholder="Ex : TP-MOTEUR-001" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
-            </div>
-            <div>
                 <label class="block text-sm font-semibold mb-1">Stock</label>
                 <input type="number" name="stock_quantity" value="{{ old('stock_quantity', $product?->stock_quantity) }}" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
             </div>
@@ -65,10 +61,6 @@
             <div class="sm:col-span-2">
                 <label class="block text-sm font-semibold mb-1">Description</label>
                 <textarea name="description" rows="4" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">{{ old('description', $product?->description) }}</textarea>
-            </div>
-            <div class="sm:col-span-2">
-                <label class="block text-sm font-semibold mb-1">Spécifications techniques</label>
-                <textarea name="specifications" rows="4" placeholder="Ex : Poids : 12 kg&#10;Dimensions : 30 x 20 x 15 cm&#10;Matière : Acier forgé" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">{{ old('specifications', $product?->specifications) }}</textarea>
             </div>
 
             <div class="sm:col-span-2 border-t border-soil-100 pt-4 mt-2">
@@ -81,8 +73,6 @@
                             <p class="text-sm text-soil-500">Cliquer ou glisser une image</p>
                             <p class="text-xs text-soil-400 mt-1">JPG, PNG, WebP — max 4 Mo</p>
                         </div>
-                        <p class="text-xs text-soil-400 mt-2">Ou coller une URL :</p>
-                        <input type="text" name="image_url" value="" placeholder="https://..." class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400 mt-1">
                     </div>
                     <div class="sm:w-40 shrink-0">
                         <div id="image-preview" class="relative w-full aspect-square bg-soil-100 rounded-xl overflow-hidden border border-soil-200">
@@ -124,10 +114,13 @@
             <div class="sm:col-span-2 border-t border-soil-100 pt-4 mt-2">
                 <div class="flex items-center justify-between mb-1">
                     <h3 class="text-sm font-bold text-field-900">Référencement (SEO)</h3>
-                    <button type="button" onclick="generateSeo()" class="text-xs font-semibold px-3 py-1.5 bg-tractor-500 hover:bg-tractor-600 text-white rounded-lg transition-colors flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        Générer
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <span id="seo-feedback" class="text-xs text-green-600 font-semibold hidden">✓ Généré</span>
+                        <button type="button" onclick="generateSeo()" class="text-xs font-semibold px-3 py-1.5 bg-tractor-500 hover:bg-tractor-600 text-white rounded-lg transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Générer
+                        </button>
+                    </div>
                 </div>
                 <p class="text-xs text-soil-400 mb-3">Ces éléments déterminent l'affichage du produit dans Google. Laissez vide pour une génération automatique.</p>
             </div>
@@ -164,23 +157,85 @@
 
 @push('scripts')
 <script>
+function previewMainImage() {
+    var input = document.getElementById('image-input');
+    var preview = document.getElementById('image-preview');
+    if (!input || !preview || !input.files || !input.files[0]) return;
+
+    var file = input.files[0];
+    if (!file.type.startsWith('image/')) return;
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        preview.innerHTML = '<img src="' + e.target.result + '" class="w-full h-full object-cover">';
+    };
+    reader.readAsDataURL(file);
+}
+
+function previewGalleryImages() {
+    var input = document.getElementById('gallery-input');
+    if (!input || !input.files || !input.files.length) return;
+
+    var list = document.getElementById('gallery-list');
+    if (!list) {
+        list = document.createElement('div');
+        list.id = 'gallery-list';
+        list.className = 'grid grid-cols-4 sm:grid-cols-6 gap-2 mt-3';
+        input.closest('.relative').after(list);
+    }
+    list.innerHTML = '';
+
+    Array.from(input.files).forEach(function (file) {
+        if (!file.type.startsWith('image/')) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var div = document.createElement('div');
+            div.className = 'relative aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200';
+            div.innerHTML = '<img src="' + e.target.result + '" class="w-full h-full object-cover">';
+            list.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+var imageInput = document.getElementById('image-input');
+if (imageInput) imageInput.addEventListener('change', previewMainImage);
+
+var galleryInput = document.getElementById('gallery-input');
+if (galleryInput) galleryInput.addEventListener('change', previewGalleryImages);
+
 function generateSeo() {
-    var name = document.querySelector('input[name="name"]').value.trim();
-    var brand = document.querySelector('input[name="brand"]').value.trim();
-    var desc = document.querySelector('textarea[name="description"]').value.trim();
+    var nameInput = document.querySelector('input[name="name"]');
+    var brandInput = document.querySelector('input[name="brand"]');
+    var descInput = document.querySelector('textarea[name="description"]');
 
     var metaTitle = document.getElementById('meta_title');
     var metaDesc = document.getElementById('meta_description');
 
-    if (name && !metaTitle.value.trim()) {
-        var t = name + (brand ? ' — ' + brand : '') + ' — La Boutique du Tracteur';
-        metaTitle.value = t.substring(0, 70);
+    var name = (nameInput ? nameInput.value : '').trim();
+    var brand = (brandInput ? brandInput.value : '').trim();
+    var desc = (descInput ? descInput.value : '').trim();
+
+    if (!name) {
+        var feedback = document.getElementById('seo-feedback');
+        feedback.textContent = 'Remplissez le nom du produit d\'abord';
+        feedback.className = 'text-xs text-red-600 font-semibold';
+        nameInput && nameInput.focus();
+        return;
     }
 
-    if (!metaDesc.value.trim()) {
-        var d = desc ? desc.replace(/<[^>]*>/g, '') : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison 24/48h partout en France.');
-        metaDesc.value = d.substring(0, 160);
-    }
+    var t = name + (brand ? ' — ' + brand : '') + ' — La Boutique du Tracteur';
+    metaTitle.value = t.substring(0, 70);
+
+    var d = desc
+        ? desc.replace(/<[^>]*>/g, '').substring(0, 160)
+        : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison 24/48h partout en France.').substring(0, 160);
+    metaDesc.value = d;
+
+    var feedback = document.getElementById('seo-feedback');
+    feedback.textContent = '✓ Généré';
+    feedback.className = 'text-xs text-green-600 font-semibold';
+    setTimeout(function () { feedback.className = 'text-xs text-green-600 font-semibold hidden'; }, 3000);
 }
 </script>
 @endpush

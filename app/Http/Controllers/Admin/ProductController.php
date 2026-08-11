@@ -39,14 +39,11 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'price' => 'required|numeric|min:0',
             'old_price' => 'nullable|numeric|min:0',
-            'sku' => 'required|string|max:255|unique:products,sku',
             'brand' => 'nullable|string|max:255',
             'compatibility' => 'nullable|string|max:255',
             'stock_quantity' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
-            'specifications' => 'nullable|string',
             'image' => 'nullable|file|image|max:4096',
-            'image_url' => 'nullable|string|url|max:2000',
             'gallery' => 'nullable|array',
             'gallery.*' => 'file|image|max:4096',
             'meta_title' => 'nullable|string|max:255',
@@ -55,13 +52,14 @@ class ProductController extends Controller
         ]);
 
         $validated['slug'] = $this->uniqueSlug(Str::slug($validated['name']));
+        $validated['sku'] = $this->uniqueSku($validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_new'] = $request->boolean('is_new');
 
         $validated['image'] = $this->handleImage($request);
         $validated['gallery_images'] = $this->handleGallery($request);
         $validated = $this->applySeo($validated);
-        unset($validated['image_url'], $validated['gallery']);
+        unset($validated['gallery']);
 
         Product::create($validated);
 
@@ -81,14 +79,11 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:categories,id',
             'price' => 'required|numeric|min:0',
             'old_price' => 'nullable|numeric|min:0',
-            'sku' => 'required|string|max:255|unique:products,sku,' . $product->id,
             'brand' => 'nullable|string|max:255',
             'compatibility' => 'nullable|string|max:255',
             'stock_quantity' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
-            'specifications' => 'nullable|string',
             'image' => 'nullable|file|image|max:4096',
-            'image_url' => 'nullable|string|url|max:2000',
             'gallery' => 'nullable|array',
             'gallery.*' => 'file|image|max:4096',
             'remove_gallery' => 'nullable|array',
@@ -103,6 +98,7 @@ class ProductController extends Controller
 
         if ($product->name !== $validated['name']) {
             $validated['slug'] = $this->uniqueSlug(Str::slug($validated['name']), $product->id);
+            $validated['sku'] = $this->uniqueSku($validated['name'], $product->id);
         }
 
         if ($request->boolean('remove_image') && $product->image) {
@@ -129,7 +125,7 @@ class ProductController extends Controller
         $validated['gallery_images'] = array_merge($existingGallery, $newGallery);
 
         $validated = $this->applySeo($validated);
-        unset($validated['image_url'], $validated['gallery'], $validated['remove_gallery'], $validated['remove_image']);
+        unset($validated['gallery'], $validated['remove_gallery'], $validated['remove_image']);
 
         $product->update($validated);
 
@@ -150,6 +146,17 @@ class ProductController extends Controller
             $slug = $base . '-' . $counter++;
         }
         return $slug;
+    }
+
+    private function uniqueSku(string $name, ?int $ignore = null): string
+    {
+        $base = 'TP-' . strtoupper(Str::slug($name));
+        $sku = $base;
+        $counter = 1;
+        while (Product::where('sku', $sku)->when($ignore, fn($q) => $q->where('id', '!=', $ignore))->exists()) {
+            $sku = $base . '-' . $counter++;
+        }
+        return $sku;
     }
 
     private function applySeo(array $validated): array
@@ -179,9 +186,6 @@ class ProductController extends Controller
     {
         if ($request->hasFile('image')) {
             return $request->file('image')->store('products', 'public');
-        }
-        if ($request->filled('image_url')) {
-            return $request->input('image_url');
         }
         return null;
     }
