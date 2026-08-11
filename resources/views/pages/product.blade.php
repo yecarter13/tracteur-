@@ -13,6 +13,11 @@ $prodTitle = $product->meta_title ?? ($product->name . ' — La Boutique du Trac
 $prodDesc = $product->meta_description ?? \Illuminate\Support\Str::limit(strip_tags((string) $product->description), 160, '…');
 $prodBrand = $product->brand ?? 'La Boutique du Tracteur';
 $prodAvail = $product->stock_quantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/BackOrder';
+$lbGallery = collect($product->gallery_images ?? [])
+    ->map(fn($g) => Str::startsWith($g, 'http') ? $g : asset('storage/' . $g))
+    ->values()
+    ->all();
+$lbImages = array_values(array_unique(array_merge([$prodImage], $lbGallery)));
 $crumbs = [
     ['@type' => 'ListItem', 'position' => 1, 'name' => 'Accueil', 'item' => route('home')],
     ['@type' => 'ListItem', 'position' => 2, 'name' => 'Boutique', 'item' => route('shop')],
@@ -93,7 +98,7 @@ $crumbs[] = ['@type' => 'ListItem', 'position' => count($crumbs) + 1, 'name' => 
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <div class="grid lg:grid-cols-2 gap-10">
-        <div class="relative bg-soil-100 rounded-2xl overflow-hidden max-h-[520px]">
+        <div class="relative bg-soil-100 rounded-2xl overflow-hidden max-h-[520px] cursor-zoom-in" onclick="openLightbox(0)" role="button" aria-label="Agrandir l'image">
             <img src="{{ $product->image ? (Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image)) : $fallback }}" alt="{{ $product->name }}" class="w-full h-full object-cover"
                 onerror="this.src='{{ $fallback }}'">
             @if($product->old_price && $product->old_price > $product->price)
@@ -102,6 +107,10 @@ $crumbs[] = ['@type' => 'ListItem', 'position' => count($crumbs) + 1, 'name' => 
             @if($product->is_new)
             <span class="absolute top-4 right-4 px-2.5 py-1 bg-cta text-white text-xs font-bold rounded-lg">Nouveau</span>
             @endif
+            <span class="absolute bottom-3 right-3 flex items-center gap-1 px-2.5 py-1.5 bg-black/60 text-white text-xs font-semibold rounded-lg">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m-3-3h6"/></svg>
+                Agrandir
+            </span>
         </div>
 
         <div>
@@ -120,8 +129,8 @@ $crumbs[] = ['@type' => 'ListItem', 'position' => count($crumbs) + 1, 'name' => 
                     @endfor
             @if($product->gallery_images && count($product->gallery_images))
             <div class="grid grid-cols-4 gap-2 mt-4">
-                @foreach($product->gallery_images as $img)
-                <div class="aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200">
+                @foreach($product->gallery_images as $index => $img)
+                <div class="aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200 cursor-zoom-in" onclick="openLightbox({{ $index + 1 }})" role="button" aria-label="Agrandir l'image {{ $index + 2 }}">
                     <img src="{{ Str::startsWith($img, 'http') ? $img : asset('storage/' . $img) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                 </div>
                 @endforeach
@@ -218,8 +227,56 @@ $crumbs[] = ['@type' => 'ListItem', 'position' => count($crumbs) + 1, 'name' => 
 
 @endsection
 
+<div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90" role="dialog" aria-modal="true" aria-label="Visionneuse d'images">
+    <button type="button" id="lb-close" class="absolute top-4 right-4 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white text-2xl transition-colors" aria-label="Fermer">&times;</button>
+    <button type="button" id="lb-prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white text-3xl transition-colors" aria-label="Image précédente">&#8249;</button>
+    <img id="lb-img" src="" alt="Photo agrandie" class="max-w-[92vw] max-h-[82vh] object-contain rounded-lg shadow-2xl">
+    <button type="button" id="lb-next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white text-3xl transition-colors" aria-label="Image suivante">&#8250;</button>
+    <div id="lb-counter" class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/90 text-sm font-semibold bg-black/40 px-3 py-1 rounded-full"></div>
+</div>
+
 @push('scripts')
 <script>
+var lbImages = {!! json_encode($lbImages, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!};
+var lbIndex = 0;
+var lbOverlay = document.getElementById('lightbox');
+var lbImg = document.getElementById('lb-img');
+var lbCounter = document.getElementById('lb-counter');
+
+function showLightbox(i) {
+    lbIndex = (i + lbImages.length) % lbImages.length;
+    lbImg.src = lbImages[lbIndex];
+    lbCounter.textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+}
+
+function openLightbox(i) {
+    if (!lbImages.length) return;
+    showLightbox(i);
+    lbOverlay.classList.remove('hidden');
+    lbOverlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lbOverlay.classList.add('hidden');
+    lbOverlay.classList.remove('flex');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', function (e) { e.stopPropagation(); showLightbox(lbIndex - 1); });
+document.getElementById('lb-next').addEventListener('click', function (e) { e.stopPropagation(); showLightbox(lbIndex + 1); });
+lbOverlay.addEventListener('click', function (e) {
+    if (e.target === lbOverlay) closeLightbox();
+});
+
+document.addEventListener('keydown', function (e) {
+    if (lbOverlay.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showLightbox(lbIndex - 1);
+    if (e.key === 'ArrowRight') showLightbox(lbIndex + 1);
+});
+
 function changeQty(delta) {
     const input = document.getElementById('qty');
     const val = parseInt(input.value) || 1;

@@ -100,4 +100,26 @@ class SeoTest extends TestCase
         $this->assertStringContainsString('category=pneus', $content);
         $this->assertStringContainsString('<lastmod>', $content);
     }
+
+    public function test_product_page_has_lightbox_gallery(): void
+    {
+        $product = $this->product();
+        $product->update(['gallery_images' => ['products/galerie-1.jpg', 'products/galerie-2.jpg']]);
+
+        $response = $this->get(route('product.show', $product->slug));
+
+        $response->assertOk();
+        $content = $response->getContent();
+
+        $this->assertStringContainsString('id="lightbox"', $content);
+        $this->assertStringContainsString('openLightbox(0)', $content);
+        $this->assertStringContainsString('openLightbox(1)', $content);
+        $this->assertStringContainsString('openLightbox(2)', $content);
+        $this->assertStringContainsString('id="lb-prev"', $content);
+        $this->assertStringContainsString('id="lb-next"', $content);
+        $this->assertStringContainsString('id="lb-close"', $content);
+        $this->assertStringContainsString('galerie-1.jpg', $content);
+        $this->assertStringContainsString('galerie-2.jpg', $content);
+        $this->assertStringContainsString('var lbImages', $content);
+    }
 }
