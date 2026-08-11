@@ -96,6 +96,10 @@ class ProductController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
         $validated['is_new'] = $request->boolean('is_new');
 
+        if (($validated['brand'] ?? null) === null && $product->brand) {
+            $validated['brand'] = $product->brand;
+        }
+
         if ($product->name !== $validated['name']) {
             $validated['slug'] = $this->uniqueSlug(Str::slug($validated['name']), $product->id);
             $validated['sku'] = $this->uniqueSku($validated['name'], $product->id);

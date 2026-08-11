@@ -39,11 +39,16 @@ class AdminProductTest extends TestCase
         $response->assertSee('Description', false);
         $response->assertSee('name="image"', false);
         $response->assertSee('Générer', false);
+        $response->assertSee('Parmi d\'autres', false);
+        $response->assertSee('<select name="brand"', false);
+        $response->assertSee('John Deere', false);
+        $response->assertSee('Väderstad', false);
 
         $this->assertStringNotContainsString('name="sku"', $response->getContent());
         $this->assertStringNotContainsString('Ou coller une URL', $response->getContent());
         $this->assertStringNotContainsString('Spécifications techniques', $response->getContent());
         $this->assertStringNotContainsString('name="image_url"', $response->getContent());
+        $this->assertStringNotContainsString('name="brand" placeholder', $response->getContent());
     }
 
     public function test_product_is_created_with_auto_sku_and_auto_seo(): void
@@ -121,6 +126,33 @@ class AdminProductTest extends TestCase
         $product->refresh();
         $this->assertSame('TP-VILEBREQUIN-COMPLET', $product->sku);
         $this->assertSame('vilebrequin-complet', $product->slug);
+    }
+
+    public function test_update_keeps_existing_brand_when_not_in_select_list(): void
+    {
+        $this->actingAs($this->admin());
+        $category = $this->category();
+
+        $product = Product::create([
+            'name' => 'Pneu Michelin',
+            'slug' => 'pneu-michelin',
+            'sku' => 'TP-PNEU-MICHELIN',
+            'price' => 50.00,
+            'category_id' => $category->id,
+            'brand' => 'Michelin',
+            'description' => 'Test',
+            'is_active' => true,
+        ]);
+
+        $this->put(route('admin.products.update', $product), [
+            'name' => 'Pneu Michelin',
+            'category_id' => $category->id,
+            'price' => 50.00,
+            'description' => 'Test modifié',
+            'is_active' => 1,
+        ])->assertRedirect(route('admin.products.index'));
+
+        $this->assertSame('Michelin', $product->fresh()->brand);
     }
 
     public function test_guest_cannot_access_admin_products(): void

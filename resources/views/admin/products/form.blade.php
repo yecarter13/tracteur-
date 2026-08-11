@@ -40,7 +40,29 @@
             </div>
             <div>
                 <label class="block text-sm font-semibold mb-1">Marque</label>
-                <input type="text" name="brand" value="{{ old('brand', $product?->brand) }}" placeholder="Ex : John Deere" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400">
+                <select name="brand" class="w-full border border-soil-200 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-tractor-400 bg-white">
+                    <option value="">Parmi d'autres</option>
+                    <optgroup label="Grandes marques">
+                        @foreach(['John Deere', 'New Holland', 'Fendt', 'Claas', 'Massey Ferguson', 'Case IH', 'Kubota', 'Valtra', 'Deutz-Fahr', 'McCormick'] as $brand)
+                        <option value="{{ $brand }}" {{ old('brand', $product?->brand) == $brand ? 'selected' : '' }}>{{ $brand }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Marques européennes et historiques">
+                        @foreach(['Same', 'Lamborghini', 'Landini', 'Steyr', 'Fiat / Fiatagri', 'Renault Agriculture', 'Ford', 'Holder', 'Lindner', 'Zetor', 'URSUS', 'BCS', 'Ferrari', 'Pasquali', 'Valpadana', 'Goldoni', 'Lanz Bulldog', 'Hürlimann', 'Unimog (Mercedes-Benz)', 'Hanomag'] as $brand)
+                        <option value="{{ $brand }}" {{ old('brand', $product?->brand) == $brand ? 'selected' : '' }}>{{ $brand }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Marques asiatiques et internationales">
+                        @foreach(['Mahindra & Mahindra', 'Sonalika', 'TAFE', 'Lovol', 'Solis', 'Kioti', 'Iseki', 'Branson', 'TYM', 'Yanmar'] as $brand)
+                        <option value="{{ $brand }}" {{ old('brand', $product?->brand) == $brand ? 'selected' : '' }}>{{ $brand }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Constructeurs spécialisés, nord-américains ou anciens">
+                        @foreach(['JCB', 'Challenger', 'AGCO', 'Minneapolis-Moline', 'Oliver', 'Allis-Chalmers', 'White', 'David Brown', 'Belarus (MTZ)', 'Väderstad'] as $brand)
+                        <option value="{{ $brand }}" {{ old('brand', $product?->brand) == $brand ? 'selected' : '' }}>{{ $brand }}</option>
+                        @endforeach
+                    </optgroup>
+                </select>
             </div>
             <div>
                 <label class="block text-sm font-semibold mb-1">Prix (€) *</label>
@@ -74,7 +96,7 @@
                             <p class="text-xs text-soil-400 mt-1">JPG, PNG, WebP — max 4 Mo</p>
                         </div>
                     </div>
-                    <div class="sm:w-40 shrink-0">
+                    <div class="w-40 max-w-full shrink-0">
                         <div id="image-preview" class="relative w-full aspect-square bg-soil-100 rounded-xl overflow-hidden border border-soil-200">
                             @if($product?->image)
                             <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="w-full h-full object-cover">
@@ -206,14 +228,14 @@ if (galleryInput) galleryInput.addEventListener('change', previewGalleryImages);
 
 function generateSeo() {
     var nameInput = document.querySelector('input[name="name"]');
-    var brandInput = document.querySelector('input[name="brand"]');
+    var brandSelect = document.querySelector('select[name="brand"]');
     var descInput = document.querySelector('textarea[name="description"]');
 
     var metaTitle = document.getElementById('meta_title');
     var metaDesc = document.getElementById('meta_description');
 
     var name = (nameInput ? nameInput.value : '').trim();
-    var brand = (brandInput ? brandInput.value : '').trim();
+    var brand = (brandSelect ? brandSelect.value : '').trim();
     var desc = (descInput ? descInput.value : '').trim();
 
     if (!name) {
