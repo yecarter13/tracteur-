@@ -31,6 +31,25 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        return str_starts_with($this->image, 'http')
+            ? $this->image
+            : asset('storage/' . $this->image);
+    }
+
+    public function getGalleryImageUrlsAttribute(): array
+    {
+        return collect($this->gallery_images ?? [])
+            ->map(fn($img) => str_starts_with($img, 'http') ? $img : asset('storage/' . $img))
+            ->values()
+            ->all();
+    }
+
     protected static function booted(): void
     {
         static::creating(function (self $product) {

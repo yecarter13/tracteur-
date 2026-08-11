@@ -99,7 +99,7 @@
                     <div class="w-40 h-40 max-w-full shrink-0">
                         <div id="image-preview" class="relative w-full h-full bg-soil-100 rounded-xl overflow-hidden border border-soil-200">
                             @if($product?->image)
-                            <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="w-full h-full object-cover">
+                            <img src="{{ $product->image_url }}" class="w-full h-full object-cover">
                             <label class="absolute top-1 right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded cursor-pointer">
                                 <input type="checkbox" name="remove_image" value="1" class="sr-only"> ×
                             </label>
@@ -123,7 +123,7 @@
                 <div id="gallery-list" class="grid grid-cols-6 sm:grid-cols-8 gap-2 mt-3">
                     @foreach($product->gallery_images as $index => $img)
                     <div class="relative aspect-square bg-soil-100 rounded-lg overflow-hidden border border-soil-200">
-                        <img src="{{ Str::startsWith($img, 'http') ? $img : asset('storage/' . $img) }}" class="w-full h-full object-cover">
+                        <img src="{{ $product->gallery_image_urls[$index] ?? asset('storage/' . $img) }}" class="w-full h-full object-cover">
                         <label class="absolute top-0.5 right-0.5 bg-red-500 text-white text-xs w-5 h-5 rounded flex items-center justify-center cursor-pointer">
                             <input type="checkbox" name="remove_gallery[]" value="{{ $img }}" class="sr-only"> ×
                         </label>

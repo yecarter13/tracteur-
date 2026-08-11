@@ -1,6 +1,6 @@
 @php
     $fallback = 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80';
-    $img = $product->image ?? $fallback;
+    $img = $product->image_url ?? $fallback;
     $waNumber = \App\Models\SiteSetting::getValue('whatsapp_number', '33612345678');
     $waMsg = 'Bonjour, je souhaite commander : ' . $product->name
         . ' (Réf : ' . $product->sku . ')'

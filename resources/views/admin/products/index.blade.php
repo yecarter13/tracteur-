@@ -25,6 +25,7 @@
         <thead class="bg-soil-50 text-soil-400 uppercase text-xs">
             <tr>
                 <th class="text-left px-6 py-3">Produit</th>
+                <th class="text-left px-6 py-3">Image</th>
                 <th class="text-left px-6 py-3">Catégorie</th>
                 <th class="text-left px-6 py-3">Marque</th>
                 <th class="text-left px-6 py-3">Prix</th>
@@ -39,6 +40,13 @@
                 <td class="px-6 py-3">
                     <p class="font-semibold">{{ $product->name }}</p>
                     <p class="text-xs text-soil-400">{{ $product->sku }}</p>
+                </td>
+                <td class="px-6 py-3">
+                    @if($product->image_url)
+                    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-14 h-14 object-cover rounded-lg border border-soil-200" onerror="this.onerror=null;this.style.display='none'">
+                    @else
+                    <span class="text-xs text-soil-400">—</span>
+                    @endif
                 </td>
                 <td class="px-6 py-3">{{ $product->category?->name ?? '—' }}</td>
                 <td class="px-6 py-3">{{ $product->brand ?? '—' }}</td>

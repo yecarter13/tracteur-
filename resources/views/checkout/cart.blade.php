@@ -30,7 +30,7 @@
             @php $product = $item->product; $fallback = 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80'; @endphp
             <div class="bg-white rounded-xl border border-soil-100 p-4 flex flex-wrap items-center gap-4 hover:shadow-lg transition-shadow">
                 <a href="{{ route('product.show', $product->slug) }}" class="w-20 h-20 bg-soil-100 rounded-lg overflow-hidden shrink-0">
-                    <img src="{{ $product->image ?? $fallback }}" alt="{{ $product->name }}" class="w-full h-full object-cover"
+                    <img src="{{ $product->image_url ?? $fallback }}" alt="{{ $product->name }}" class="w-full h-full object-cover"
                         onerror="this.src='{{ $fallback }}'">
                 </a>
                 <div class="flex-1 min-w-[180px]">
