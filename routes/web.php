@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
@@ -23,16 +22,6 @@ Route::get('/categories', [ShopController::class, 'categories'])->name('categori
 Route::get('/produit/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-Route::get('/storage/{path}', function (string $path) {
-    $path = rawurldecode($path);
-
-    if ($path === '' || str_contains($path, '..') || !Storage::disk('public')->exists($path)) {
-        abort(404);
-    }
-
-    return Storage::disk('public')->response($path);
-})->where('path', '.*');
 
 Route::get('/livraison', [PageController::class, 'show'])->defaults('page', 'delivery')->name('delivery');
 Route::get('/retours', [PageController::class, 'show'])->defaults('page', 'returns')->name('returns');
