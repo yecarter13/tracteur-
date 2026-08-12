@@ -4,6 +4,9 @@
     # Rewrite storage packages to the real folder
     RewriteRule ^storage/packages/(.*)$ storage/app/public/packages/$1 [L]
 
+    # Serve uploaded storage files from the real folder (the public/storage symlink is not followed by the web server)
+    RewriteRule ^storage/(.*)$ storage/app/public/$1 [L]
+
     # Serve existing static FILES that live in the public/ subfolder
     RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f
     RewriteRule ^(.*)$ public/$1 [L]
