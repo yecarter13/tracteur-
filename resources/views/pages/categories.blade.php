@@ -2,7 +2,7 @@
 
 @section('title', 'Catégories de pièces de tracteur')
 
-@section('meta_description', 'Catégories de pièces de tracteur : moteur, hydraulique, embrayage, relevage, filtration, échappement, pneus, accessoires. Stock disponible, livraison 24/48h.')
+@section('meta_description', 'Catégories de pièces de tracteur : moteur, hydraulique, embrayage, relevage, filtration, échappement, pneus, accessoires. Stock disponible, livraison partout dans le monde.')
 
 @section('content')
 

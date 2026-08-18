@@ -2,7 +2,7 @@
 
 @section('title', 'Contact — La Boutique du Tracteur')
 
-@section('meta_description', 'Contactez nos experts pour vos pièces de tracteur. Livraison 24/48h partout en France, pièces garanties 24 mois. 77 chemin de Lespinasse, 31140 Aucamville.')
+@section('meta_description', 'Contactez nos experts pour vos pièces de tracteur. Livraison partout dans le monde, pièces garanties 24 mois. 77 chemin de Lespinasse, 31140 Aucamville.')
 
 @section('content')
 

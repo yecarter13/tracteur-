@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="format-detection" content="telephone=no">
     <title>@yield('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties')</title>
-    <meta name="description" content="@yield('meta_description', 'La Boutique du Tracteur, votre fournisseur français de pièces de tracteur neuves et garanties à Aucamville (Toulouse) : moteur, hydraulique, embrayage, relevage, filtration. Livraison rapide partout en France.')">
+    <meta name="description" content="@yield('meta_description', 'La Boutique du Tracteur, votre fournisseur de pièces de tracteur neuves et garanties à Aucamville (Toulouse) : moteur, hydraulique, embrayage, relevage, filtration. Livraison partout dans le monde.')">
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@else<meta name="robots" content="index, follow">@endif
     <link rel="canonical" href="@yield('canonical', url()->current())">
     <link rel="preconnect" href="https://fonts.googleapis.com">

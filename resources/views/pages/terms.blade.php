@@ -2,7 +2,7 @@
 
 @section('title', 'Conditions générales de vente — La Boutique du Tracteur')
 
-@section('meta_description', 'Conditions générales de vente de La Boutique du Tracteur. Pièces neuves garanties 24 mois, livraison 24/48h partout en France, paiement sécurisé CB et virement.')
+@section('meta_description', 'Conditions générales de vente de La Boutique du Tracteur. Pièces neuves garanties 24 mois, livraison partout dans le monde, paiement sécurisé CB et virement.')
 
 @section('content')
 

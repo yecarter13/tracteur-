@@ -2,14 +2,14 @@
 
 @section('title', 'Livraison & transport')
 
-@section('meta_description', 'Livraison 24/48h en France métropolitaine. Frais de port offerts dès 200€. Transporteurs spécialisés pièces lourdes et volumineuses.')
+@section('meta_description', 'Livraison rapide en France et partout dans le monde. Expédition sous 24h, transporteurs spécialisés pour pièces lourdes et volumineuses.')
 
 @section('content')
 
 <section class="bg-field-800 text-white">
     <div class="max-w-4xl mx-auto px-4 py-12">
         <h1 class="text-3xl md:text-4xl font-extrabold">Livraison &amp; transport</h1>
-        <p class="mt-2 text-field-300">Nos modes d'expédition et délais de livraison en France.</p>
+        <p class="mt-2 text-field-300">Nos modes d'expédition et délais de livraison en France et partout dans le monde.</p>
     </div>
 </section>
 
@@ -17,7 +17,11 @@
     <div class="space-y-6 text-soil-600 leading-relaxed">
         <div>
             <h2 class="text-xl font-bold text-soil-900 mb-2">Délais de livraison</h2>
-            <p>Les pièces en stock sont expédiées sous 24h ouvrées. Le délai moyen de livraison en France métropolitaine est de 24 à 48h selon le transporteur et votre localisation.</p>
+            <p>Les pièces en stock sont expédiées sous 24h ouvrées. Livraison rapide en France métropolitaine et expédition vers le monde entier (Europe, Afrique, Amériques, Asie, Océanie) selon le transporteur et votre localisation.</p>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-soil-900 mb-2">Livraison internationale</h2>
+            <p>Nous expédions dans le monde entier. Les délais et frais d'expédition internationale dépendent de la destination et du poids des pièces ; un devis de transport vous est transmis avant toute expédition.</p>
         </div>
         <div>
             <h2 class="text-xl font-bold text-soil-900 mb-2">Frais de livraison</h2>

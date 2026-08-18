@@ -248,7 +248,7 @@ function autoSeo() {
         var desc = getSeoDesc();
         var d = desc
             ? desc.replace(/<[^>]*>/g, '').substring(0, 160)
-            : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison 24/48h partout en France.').substring(0, 160);
+            : ('Pièce neuve et garantie 24 mois' + (brand ? ' pour ' + brand : '') + '. Prix attractif et livraison partout dans le monde.').substring(0, 160);
         metaDesc.value = d;
     }
 }

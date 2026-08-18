@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
-@section('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France')
+@section('title', 'La Boutique du Tracteur — Pièces de tracteur neuves et garanties partout dans le monde')
 
 @section('seo_head')
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="La Boutique du Tracteur">
-<meta property="og:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France">
-<meta property="og:description" content="Votre fournisseur français de pièces de tracteur neuves et garanties : moteur, hydraulique, embrayage, relevage, filtration. Livraison rapide partout en France.">
+<meta property="og:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties partout dans le monde">
+<meta property="og:description" content="Votre fournisseur de pièces de tracteur neuves et garanties : moteur, hydraulique, embrayage, relevage, filtration. Livraison partout dans le monde.">
 <meta property="og:url" content="{{ url('/') }}">
 <meta property="og:image" content="{{ $fallback }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties en France">
-<meta name="twitter:description" content="Votre fournisseur français de pièces de tracteur neuves et garanties. Livraison rapide partout en France.">
+<meta name="twitter:title" content="La Boutique du Tracteur — Pièces de tracteur neuves et garanties partout dans le monde">
+<meta name="twitter:description" content="Votre fournisseur de pièces de tracteur neuves et garanties. Livraison partout dans le monde.">
 <meta name="twitter:image" content="{{ $fallback }}">
 @endsection
 
@@ -76,7 +76,7 @@
                     <svg class="w-6 h-6 lg:w-7 lg:h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <h4 class="text-sm lg:text-base font-bold text-field-900 mb-0.5">Livraison 24/48h</h4>
-                <p class="text-[11px] lg:text-xs text-field-500">Partout en France</p>
+                <p class="text-[11px] lg:text-xs text-field-500">Partout dans le monde</p>
             </div>
             <div class="flex flex-col items-center text-center p-4 lg:p-5 bg-field-50 rounded-2xl border border-soil-100 hover:border-tractor-300/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 <div class="w-12 h-12 lg:w-14 lg:h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-3">
@@ -149,12 +149,12 @@
             </div>
             <div>
                 <span class="text-tractor-500 font-semibold text-sm uppercase tracking-widest">Notre savoir-faire</span>
-                <h2 class="text-3xl lg:text-4xl font-bold text-field-900 mt-2">Des pièces de tracteur neuves et garanties, partout en France</h2>
-                <p class="text-field-500 mt-4 leading-relaxed">De la simple pièce d'usure à la pièce technique la plus rare, La Boutique du Tracteur vous accompagne avec un stock de plus de 50 000 références et l'expertise de nos spécialistes.</p>
+                <h2 class="text-3xl lg:text-4xl font-bold text-field-900 mt-2">Des pièces de tracteur neuves et garanties, partout dans le monde</h2>
+                <p class="text-field-500 mt-4 leading-relaxed">Depuis plus de 60 ans, La Boutique du Tracteur accompagne agriculteurs, concessionnaires et ateliers avec un stock de plus de 50 000 références et l'expertise de nos spécialistes.</p>
                 <ul class="mt-6 space-y-3">
                     <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Pièces neuves d'origine ou de qualité équivalente certifiée</span></li>
                     <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Garantie 24 mois sur toutes nos références</span></li>
-                    <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Expédition sous 24h et livraison 24/48h</span></li>
+                    <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Expédition sous 24h et livraison partout dans le monde</span></li>
                 </ul>
                 <a href="{{ route('shop') }}" class="mt-8 inline-flex items-center px-6 py-3 bg-tractor-500 hover:bg-tractor-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-tractor-500/25">
                     Découvrir la boutique
@@ -211,7 +211,7 @@
                     <svg class="w-7 h-7 text-tractor-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
                 <h3 class="text-white font-semibold mb-2">Expédition sous 24h</h3>
-                <p class="text-field-400 text-sm leading-relaxed">Commandes préparées le jour même avant 15h et livrées en 24/48h partout en France métropolitaine.</p>
+                <p class="text-field-400 text-sm leading-relaxed">Commandes préparées le jour même et expédiées sous 24h, avec livraison partout dans le monde.</p>
             </div>
             <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 lg:p-8 text-center hover:bg-white/10 transition-all duration-300 group">
                 <div class="w-14 h-14 mx-auto mb-5 bg-tractor-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

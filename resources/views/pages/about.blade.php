@@ -2,7 +2,7 @@
 
 @section('title', 'À propos — La Boutique du Tracteur')
 
-@section('meta_description', 'La Boutique du Tracteur, spécialiste français de la pièce de tracteur neuve depuis plus de 15 ans à Aucamville (Toulouse). Pièces garanties 24 mois, livraison 24/48h.')
+@section('meta_description', 'La Boutique du Tracteur, spécialiste de la pièce de tracteur neuve depuis plus de 60 ans à Aucamville (Toulouse). Pièces garanties 24 mois, livraison partout dans le monde.')
 
 @section('content')
 
@@ -10,7 +10,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <p class="text-tractor-400 font-semibold text-sm uppercase tracking-widest mb-1">Qui sommes-nous</p>
         <h1 class="text-3xl md:text-5xl font-bold text-white">La Boutique du Tracteur, spécialiste français de la pièce de tracteur</h1>
-        <p class="mt-4 text-lg text-field-300 max-w-2xl">Basée à Aucamville (Haute-Garonne, près de Toulouse), la boutique fournit des pièces neuves et garanties aux agriculteurs, concessionnaires et ateliers de toute la France.</p>
+        <p class="mt-4 text-lg text-field-300 max-w-2xl">Basée à Aucamville (Haute-Garonne, près de Toulouse), la boutique fournit des pièces neuves et garanties aux agriculteurs, concessionnaires et ateliers du monde entier depuis plus de 60 ans.</p>
     </div>
 </section>
 
@@ -22,7 +22,7 @@
                 <p class="mt-2 text-field-500">références en stock</p>
             </div>
             <div class="bg-white rounded-xl border border-soil-100 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <p class="text-4xl font-extrabold text-tractor-500">15 ans</p>
+                <p class="text-4xl font-extrabold text-tractor-500">60 ans</p>
                 <p class="mt-2 text-field-500">d'expertise agricole</p>
             </div>
             <div class="bg-white rounded-xl border border-soil-100 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -46,7 +46,7 @@
                 <ul class="space-y-3 text-soil-600">
                     <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Pièces neuves d'origine ou de qualité équivalente certifiée</li>
                     <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Garantie 24 mois sur toutes nos pièces</li>
-                    <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Expédition sous 24h et livraison 24/48h en France</li>
+                    <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Expédition sous 24h et livraison partout dans le monde</li>
                     <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Conseil expert pour identifier la bonne référence</li>
                     <li class="flex gap-3"><span class="text-tractor-500 font-bold">✓</span> Tarifs négociés pour les professionnels et concessionnaires</li>
                 </ul>

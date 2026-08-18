@@ -2,18 +2,18 @@
 
 @section('title', 'Boutique — Pièces de tracteur')
 
-@section('meta_description', 'Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison rapide 24/48h en France. Moteur, hydraulique, embrayage, filtration — stock disponible.')
+@section('meta_description', 'Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison partout dans le monde. Moteur, hydraulique, embrayage, filtration — stock disponible.')
 
 @section('seo_head')
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="La Boutique du Tracteur">
 <meta property="og:title" content="Boutique — Pièces de tracteur neuves et garanties">
-<meta property="og:description" content="Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison rapide 24/48h en France. Moteur, hydraulique, embrayage, filtration.">
+<meta property="og:description" content="Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison partout dans le monde. Moteur, hydraulique, embrayage, filtration.">
 <meta property="og:url" content="{{ route('shop') }}">
 <meta property="og:image" content="{{ asset('hero1.jpg') }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Boutique — Pièces de tracteur neuves et garanties">
-<meta name="twitter:description" content="Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison rapide 24/48h en France.">
+<meta name="twitter:description" content="Toutes nos pièces de tracteur neuves et garanties 24 mois. Livraison partout dans le monde.">
 <meta name="twitter:image" content="{{ asset('hero1.jpg') }}">
 @endsection
 
