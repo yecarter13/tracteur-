@@ -33,6 +33,7 @@
 
         <div class="mt-12 grid md:grid-cols-2 gap-8">
             <div class="bg-white rounded-xl border border-soil-100 p-8">
+                <img src="{{ asset('section2.jpeg') }}" alt="La Boutique du Tracteur — notre atelier et notre équipe" class="w-full h-64 object-cover rounded-lg border border-soil-100 mb-5" loading="lazy">
                 <h2 class="text-2xl font-bold text-field-900 mb-4">Notre métier</h2>
                 <p class="text-soil-600 leading-relaxed">
                     La Boutique du Tracteur distribue des pièces de tracteur neuves et garanties pour toutes les grandes marques :

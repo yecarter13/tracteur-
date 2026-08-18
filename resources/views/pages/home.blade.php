@@ -140,6 +140,31 @@
     </div>
 </section>
 
+{{-- SECTION IMAGE --}}
+<section class="py-16 lg:py-20 bg-field-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
+            <div class="relative">
+                <img src="{{ asset('section3.jpeg') }}" alt="La Boutique du Tracteur — pièces détachées" class="w-full h-full object-cover rounded-2xl border border-soil-100 shadow-xl" loading="lazy">
+            </div>
+            <div>
+                <span class="text-tractor-500 font-semibold text-sm uppercase tracking-widest">Notre savoir-faire</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-field-900 mt-2">Des pièces de tracteur neuves et garanties, partout en France</h2>
+                <p class="text-field-500 mt-4 leading-relaxed">De la simple pièce d'usure à la pièce technique la plus rare, La Boutique du Tracteur vous accompagne avec un stock de plus de 50 000 références et l'expertise de nos spécialistes.</p>
+                <ul class="mt-6 space-y-3">
+                    <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Pièces neuves d'origine ou de qualité équivalente certifiée</span></li>
+                    <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Garantie 24 mois sur toutes nos références</span></li>
+                    <li class="flex gap-3 items-start"><span class="text-tractor-500 font-bold">✓</span><span class="text-soil-600">Expédition sous 24h et livraison 24/48h</span></li>
+                </ul>
+                <a href="{{ route('shop') }}" class="mt-8 inline-flex items-center px-6 py-3 bg-tractor-500 hover:bg-tractor-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-tractor-500/25">
+                    Découvrir la boutique
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- PRODUITS PHARES --}}
 <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
